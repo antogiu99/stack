@@ -1,30 +1,54 @@
-#include "funzioni.c"
 #include "stack.h"
 
 
 
-int main (void)
+void inizializza(stack *stk)
 {
-  char str[]="mi chiamo joanna kelly!";
-  int i;
-  stack s;
+  stk->cnt=0;
+  stk->top=NULL;
+}
 
-  inizializza(&s);
-  printf("la stringa contiene %s \n",str);
-  for (i=0;str[i]!='\0';i++)
-  {
-    if (!full(&s))
-    {
-      push(str[i],&s);
-    }
-  }
-  printf("dallo stack : \n");
-  while(!empty(&s))
-  {
-    putchar(pop(&s));
-  }
-  putchar('\n');
+void push (char d,stack *stk)
+{
+  elem *p;
+  p=malloc(sizeof(elem));
+  p->d=d;
+  p->next=stk->top;
+  stk->top=p;
+  stk->cnt++;
+}
 
-  return 0;
 
+
+char pop(stack *stk)
+{
+  char r;
+  elem *p;
+
+  r=stk->top->d;
+  p=stk->top;
+  stk->top=stk->top->next;
+  stk->cnt--;
+  free(p);
+  return r;
+}
+
+
+char top(stack *stk)
+{
+  char r;
+  r=stk->top->d;
+  return r;
+}
+boolean empty(stack *stk)
+{
+  int c;
+  c=stk->cnt;
+  return ((boolean) (c==EMPTY));
+}
+boolean full(stack *stk)
+{
+int c;
+c=stk->cnt;
+return ((boolean) (c==FULL));
 }
