@@ -3,11 +3,11 @@
 #include <ctype.h>
 
 
-
+typedef int boolean;
+#define false 0
+#define true 1
 #define EMPTY 0
 #define FULL 100
-
-typedef enum{false, true}  boolean;
 
 struct elem {
   char d;
